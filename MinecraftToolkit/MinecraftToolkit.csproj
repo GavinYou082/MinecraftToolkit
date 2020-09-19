@@ -6,16 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetZip" Version="1.13.7" />
+    <Compile Remove="Substrate\**" />
+    <EmbeddedResource Remove="Substrate\**" />
+    <None Remove="Substrate\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Substrate\INbtObject.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Substrate\NbtVerifier.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <PackageReference Include="DotNetZip" Version="1.13.7" />
   </ItemGroup>
 
 </Project>
