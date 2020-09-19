@@ -4,10 +4,16 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace MinecraftToolkit.Nbt
 {
-    //TODO: deep copy child tags
     public class NbtTagCompound : NbtTag<Dictionary<string, NbtTag<object>>>, IDictionary<string, NbtTag<object>>
     {
-        public NbtTagCompound(Dictionary<string, NbtTag<object>> value) : base(value) { }
+        public NbtTagCompound(Dictionary<string, NbtTag<object>> value) 
+        {
+            Value = new Dictionary<string, NbtTag<object>>();
+            foreach (var item in value)
+            {
+                Value.Add(item.Key, item.Value.Clone());
+            }
+        }
 
         protected override NbtTag<Dictionary<string, NbtTag<object>>> CloneTag() => new NbtTagCompound(Value);
         public new NbtTagCompound Clone() => CloneTag() as NbtTagCompound;
