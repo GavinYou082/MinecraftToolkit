@@ -3,16 +3,16 @@ using System.Text;
 
 namespace MinecraftToolkit.Nbt
 {
-    public abstract class NbtTag<T> : ICloneable
+    public abstract class Tag<T> : ICloneable
     {
         public T Value { get; set; }
 
-        protected NbtTag(T value = default)
+        protected Tag(T value = default)
         {
             Value = value;
         }
 
-        public static implicit operator T(NbtTag<T> tag) => tag.Value;
+        public static implicit operator T(Tag<T> tag) => tag.Value;
 
         public override bool Equals(object obj)
         {
@@ -25,8 +25,8 @@ namespace MinecraftToolkit.Nbt
         }
 
         #region Implement Clone
-        public NbtTag<T> Clone() => CloneTag();
-        protected abstract NbtTag<T> CloneTag();
+        public Tag<T> Clone() => CloneTag();
+        protected abstract Tag<T> CloneTag();
         object ICloneable.Clone() => CloneTag();
         #endregion
     }
