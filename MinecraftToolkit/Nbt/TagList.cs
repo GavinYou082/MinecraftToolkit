@@ -1,15 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace MinecraftToolkit.Nbt
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public class TagList<T> : Tag<IList<T>>, IList<T>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public static new readonly byte ID = 9;
 
         public TagList(IList<T> value = default)
         {
             Value = value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is not TagList<T> lst || lst.Count != Count) return false;
+            for (int i = 0; i < Count; i++)
+            {
+                if (!lst[i].Equals(Value[i])) return false;
+            }
+            return true;
         }
 
         protected override Tag<IList<T>> CloneTag()
