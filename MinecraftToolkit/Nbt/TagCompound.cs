@@ -20,7 +20,7 @@ namespace MinecraftToolkit.Nbt
         protected override Tag<Dictionary<string, Tag<object>>> CloneTag() => new TagCompound(Value);
         public new TagCompound Clone() => CloneTag() as TagCompound;
 
-        #region Implement IDictionary<string, NbtTag<object>>
+        #region IDictionary<string, NbtTag<object>> Members
         public ICollection<string> Keys => Value.Keys;
 
         public ICollection<Tag<object>> Values => Value.Values;
