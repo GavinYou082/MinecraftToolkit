@@ -5,6 +5,7 @@ namespace MinecraftToolkit.Nbt
 {
     public abstract class Tag<T> : ICloneable
     {
+        public static readonly byte ID;//TODO: add tag ids
         public T Value { get; set; }
 
         protected Tag(T value = default)
@@ -24,7 +25,7 @@ namespace MinecraftToolkit.Nbt
             return Value.GetHashCode();
         }
 
-        #region Implement Clone
+        #region Implement ICloneable
         public Tag<T> Clone() => CloneTag();
         protected abstract Tag<T> CloneTag();
         object ICloneable.Clone() => CloneTag();

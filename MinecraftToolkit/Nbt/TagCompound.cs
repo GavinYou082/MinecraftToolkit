@@ -13,8 +13,8 @@ namespace MinecraftToolkit.Nbt
             {
                 Value.Add(item.Key, item.Value.Clone());
             }
-        }
-
+        }//TODO: Move clone to CloneTag()
+        //TODO: override Equals()
         protected override Tag<Dictionary<string, Tag<object>>> CloneTag() => new TagCompound(Value);
         public new TagCompound Clone() => CloneTag() as TagCompound;
 
@@ -27,7 +27,7 @@ namespace MinecraftToolkit.Nbt
 
         bool ICollection<KeyValuePair<string, Tag<object>>>.IsReadOnly => false;
 
-        public Tag<object> this[string key] { get => Value[key]; set => Value[key] = value; }
+        public Tag<object> this[string key] { get => Value[key]; set => Value[key] = value; }//
 
 
         public void Add(string key, Tag<object> value) => Value.Add(key, value);
@@ -38,7 +38,7 @@ namespace MinecraftToolkit.Nbt
 
         public bool TryGetValue(string key, [MaybeNullWhen(false)] out Tag<object> value) => Value.TryGetValue(key, out value);
 
-        public void Add(KeyValuePair<string, Tag<object>> item) => Value.Add(item.Key, item.Value);
+        public void Add(KeyValuePair<string, Tag<object>> item) => Value.Add(item.Key, item.Value);//
 
         public void Clear() => Value.Clear();
 

@@ -6,7 +6,7 @@
         {
             Value = new T[value.Length];
             value.CopyTo(Value, 0);
-        }
+        }//TODO: Move clone to CloneTag()
 
         public new TagArray<T> Clone() => CloneTag() as TagArray<T>;
     }
