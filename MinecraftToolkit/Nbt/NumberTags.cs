@@ -2,6 +2,7 @@
 {
     public class TagByte : Tag<sbyte>
     {
+        public static new readonly byte ID = 1;
         public TagByte(sbyte value = default) : base(value) { }
 
         protected override Tag<sbyte> CloneTag() => new TagByte(Value);
@@ -14,6 +15,7 @@
 
     public class TagShort : Tag<short>
     {
+        public static new readonly byte ID = 2;
         public TagShort(short value = default) : base(value) { }
 
         protected override Tag<short> CloneTag() => new TagShort(Value);
@@ -25,6 +27,7 @@
 
     public class TagInt : Tag<int>
     {
+        public static new readonly byte ID = 3;
         public TagInt(int value = default) : base(value) { }
 
         protected override Tag<int> CloneTag() => new TagInt(Value);
@@ -35,6 +38,7 @@
 
     public class TagLong : Tag<long>
     {
+        public static new readonly byte ID = 4;
         public TagLong(long value = default) : base(value) { }
 
         protected override Tag<long> CloneTag() => new TagLong(Value);
@@ -44,6 +48,7 @@
 
     public class TagFloat : Tag<float>
     {
+        public static new readonly byte ID = 5;
         public TagFloat(float value = default) : base(value) { }
 
         protected override Tag<float> CloneTag() => new TagFloat(Value);
@@ -54,6 +59,7 @@
 
     public class TagDouble : Tag<double>
     {
+        public static new readonly byte ID = 6;
         public TagDouble(double value = default) : base(value) { }
 
         protected override Tag<double> CloneTag() => new TagDouble(Value);

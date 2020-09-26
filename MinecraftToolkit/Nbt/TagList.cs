@@ -4,6 +4,8 @@ namespace MinecraftToolkit.Nbt
 {
     public class TagList<T> : Tag<IList<T>>
     {
+        public static new readonly byte ID = 9;
+
         public TagList(IList<T> value = default)
         {
             T[] arr = new T[value.Count];

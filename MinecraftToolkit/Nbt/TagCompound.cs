@@ -6,6 +6,8 @@ namespace MinecraftToolkit.Nbt
 {
     public class TagCompound : Tag<Dictionary<string, Tag<object>>>, IDictionary<string, Tag<object>>
     {
+        public static new readonly byte ID = 10;
+
         public TagCompound(Dictionary<string, Tag<object>> value) 
         {
             Value = new Dictionary<string, Tag<object>>();
