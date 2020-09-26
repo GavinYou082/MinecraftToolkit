@@ -8,12 +8,15 @@ namespace MinecraftToolkit.Nbt
 
         public TagList(IList<T> value = default)
         {
-            T[] arr = new T[value.Count];
-            value.CopyTo(arr, 0);
-            Value = arr;
+            Value = value;
         }
 
-        protected override Tag<IList<T>> CloneTag() => new TagList<T>(Value);
+        protected override Tag<IList<T>> CloneTag()
+        {
+            T[] arr = new T[Value.Count];
+            Value.CopyTo(arr, 0);
+            return new TagList<T>(arr);
+        }
         public new TagList<T> Clone() => CloneTag() as TagList<T>;
     }
 }
