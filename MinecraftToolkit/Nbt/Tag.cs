@@ -5,7 +5,7 @@ namespace MinecraftToolkit.Nbt
 {
     public abstract class Tag<T> : ICloneable
     {
-        public static readonly byte ID;//TODO: add tag ids
+        public static readonly byte ID;
         public T Value { get; set; }
 
         protected Tag(T value = default)

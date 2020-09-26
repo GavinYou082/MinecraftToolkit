@@ -11,33 +11,33 @@
         public new TagArray<T> Clone() => CloneTag() as TagArray<T>;
     }
 
-    public class TagArrayByte : TagArray<sbyte>
+    public class TagByteArray : TagArray<sbyte>
     {
         public static new readonly byte ID = 7;
 
-        public TagArrayByte(sbyte[] value = default) : base(value) { }
+        public TagByteArray(sbyte[] value = default) : base(value) { }
 
-        protected override Tag<sbyte[]> CloneTag() => new TagArrayByte(Value);
-        public new TagArrayByte Clone() => CloneTag() as TagArrayByte;
+        protected override Tag<sbyte[]> CloneTag() => new TagByteArray(Value);
+        public new TagByteArray Clone() => CloneTag() as TagByteArray;
     }
 
-    public class TagArrayInt : TagArray<int>
+    public class TagIntArray : TagArray<int>
     {
         public static new readonly byte ID = 11;
 
-        public TagArrayInt(int[] value = default) : base(value) { }
+        public TagIntArray(int[] value = default) : base(value) { }
 
-        protected override Tag<int[]> CloneTag() => new TagArrayInt(Value);
-        public new TagArrayInt Clone() => CloneTag() as TagArrayInt;
+        protected override Tag<int[]> CloneTag() => new TagIntArray(Value);
+        public new TagIntArray Clone() => CloneTag() as TagIntArray;
     }
 
-    public class TagArrayLong : TagArray<long>
+    public class TagLongArray : TagArray<long>
     {
         public static new readonly byte ID = 12;
 
-        public TagArrayLong(long[] value = default) : base(value) { }
+        public TagLongArray(long[] value = default) : base(value) { }
 
-        protected override Tag<long[]> CloneTag() => new TagArrayLong(Value);
-        public new TagArrayLong Clone() => CloneTag() as TagArrayLong;
+        protected override Tag<long[]> CloneTag() => new TagLongArray(Value);
+        public new TagLongArray Clone() => CloneTag() as TagLongArray;
     }
 }

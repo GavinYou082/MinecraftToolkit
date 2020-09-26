@@ -47,7 +47,7 @@ namespace MinecraftToolkit.Test
         [TestMethod]
         public void TestMethod2()
         {
-            TagArrayInt a = new TagArrayInt(new int[] { 1, 2 });
+            TagIntArray a = new TagIntArray(new int[] { 1, 2 });
             var clone=a.Clone();
             return;
         }
