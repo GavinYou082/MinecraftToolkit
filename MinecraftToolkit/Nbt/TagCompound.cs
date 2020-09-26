@@ -40,7 +40,8 @@ namespace MinecraftToolkit.Nbt
 
         public bool TryGetValue(string key, [MaybeNullWhen(false)] out Tag<object> value) => Value.TryGetValue(key, out value);
 
-        public void Add(KeyValuePair<string, Tag<object>> item) => Value.Add(item.Key, item.Value);//
+        void ICollection<KeyValuePair<string, Tag<object>>>.Add(KeyValuePair<string, Tag<object>> item) 
+            => ((ICollection<KeyValuePair<string, Tag<object>>>)Value).Add(item);
 
         public void Clear() => Value.Clear();
 
