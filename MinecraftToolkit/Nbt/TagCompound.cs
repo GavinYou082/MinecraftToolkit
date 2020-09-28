@@ -5,7 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace MinecraftToolkit.Nbt
 {
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public class TagCompound : Tag<Dictionary<string, INbtTag>>, IDictionary<string, INbtTag>
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
         public static new readonly byte ID = 10;
 
@@ -15,19 +17,20 @@ namespace MinecraftToolkit.Nbt
             else Value = value;
         }
 
-        //TODO: override Equals()
-        protected override Tag<Dictionary<string, INbtTag>> CloneTag()
+        public override bool Equals(INbtTag obj)
         {
-            var dict = new Dictionary<string, INbtTag>();
+            if (obj is not TagCompound compound) return false;
             foreach (var item in Value)
             {
-                dict.Add(item.Key, (Tag<Dictionary<string, INbtTag>>)item.Value.Clone());
+                //TODO: if contains extra values?
+                string key = item.Key;
+                if (compound.ContainsKey(key) && compound[key].Equals(Value[key])) continue;
+                return false;
             }
-            return new TagCompound(Value);
+            return base.Equals(obj);
         }
-        public new TagCompound Clone() => CloneTag() as TagCompound;
 
-        public T GetChild<T>(string key) where T: Tag<T> => Value[key] as T;
+        public T GetChild<T>(string key) where T : Tag<T> => Value[key] as T;
         public bool TryGetChild<T>(string key, [MaybeNullWhen(false)] out T child) where T : Tag<T>
         {
             child = null;
@@ -40,6 +43,19 @@ namespace MinecraftToolkit.Nbt
 
             return false;
         }
+
+        #region ICloneable Members
+        protected override Tag<Dictionary<string, INbtTag>> CloneTag()
+        {
+            var dict = new Dictionary<string, INbtTag>();
+            foreach (var item in Value)
+            {
+                dict.Add(item.Key, (Tag<Dictionary<string, INbtTag>>)item.Value.Clone());
+            }
+            return new TagCompound(Value);
+        }
+        public new TagCompound Clone() => CloneTag() as TagCompound;
+        #endregion
 
         #region IDictionary<string, NbtINbtTag> Members
         public ICollection<string> Keys => Value.Keys;

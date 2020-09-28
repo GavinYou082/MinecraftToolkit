@@ -4,7 +4,23 @@ using System.Text;
 
 namespace MinecraftToolkit.Nbt
 {
-    public enum TagType { TagEnd, TagInt }
+    public enum TagType 
+    { 
+        TagEnd,
+        TagByte,
+        TagShort,
+        TagInt,
+        TagLong,
+        TagFloat,
+        TagDouble,
+        TagByteArray,
+        TagString,
+        TagList,
+        TagCompound,
+        TagIntArray,
+        TagLongArray
+    }
+
     public interface INbtTag : ICloneable, IEquatable<INbtTag>
     {
         TagType TagType { get; }
@@ -47,11 +63,11 @@ namespace MinecraftToolkit.Nbt
         #endregion
 
         #region IEquatable Members
-        public bool Equals([AllowNull] INbtTag other) => Value.Equals(other);
+        public virtual bool Equals([AllowNull] INbtTag other) => Value.Equals(other.GetValue());
 
-        public override bool Equals(object obj)
+        public sealed override bool Equals(object obj)
         {
-            if(obj is Tag<T>) return Value.Equals(obj);
+            if(obj is INbtTag t) return Value.Equals(t);
             return false;
         }
 
