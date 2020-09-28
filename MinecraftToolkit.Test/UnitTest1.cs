@@ -12,6 +12,18 @@ namespace MinecraftToolkit.Test
         [TestMethod]
         public void PerformanceTest()
         {
+            TagCompound compound = new(new Dictionary<string, INbtTag>());
+            compound.Add("double", new TagDouble(10.0d));
+            
+            var tag = compound["double"];
+            var val = tag.GetValue<double>();
+            var dtag = tag as TagDouble;
+
+            var child = compound["child"] as TagCompound;
+            int count = child.Count;
+            
+
+            Console.WriteLine(val);
             //List<string> failed = new List<string>();
             //List<NbtTree> regions = new List<NbtTree>();
             //foreach (var item in Directory.EnumerateFiles(@"D:\Minecraft\.minecraft\saves\Survival\region"))

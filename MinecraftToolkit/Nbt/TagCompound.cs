@@ -1,60 +1,61 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace MinecraftToolkit.Nbt
 {
-    public class TagCompound : Tag<Dictionary<string, Tag<object>>>, IDictionary<string, Tag<object>>
+    public class TagCompound : Tag<Dictionary<string, INbtTag>>, IDictionary<string, INbtTag>
     {
         public static new readonly byte ID = 10;
 
-        public TagCompound(Dictionary<string, Tag<object>> value) 
+        public TagCompound(Dictionary<string, INbtTag> value) 
         {
-            Value = new Dictionary<string, Tag<object>>();
+            Value = new Dictionary<string, INbtTag>();
             foreach (var item in value)
             {
                 Value.Add(item.Key, item.Value.Clone());
             }
         }//TODO: Move clone to CloneTag()
         //TODO: override Equals()
-        protected override Tag<Dictionary<string, Tag<object>>> CloneTag() => new TagCompound(Value);
+        protected override Tag<Dictionary<string, INbtTag>> CloneTag() => new TagCompound(Value);
         public new TagCompound Clone() => CloneTag() as TagCompound;
 
-        #region IDictionary<string, NbtTag<object>> Members
+        #region IDictionary<string, NbtINbtTag> Members
         public ICollection<string> Keys => Value.Keys;
 
-        public ICollection<Tag<object>> Values => Value.Values;
+        public ICollection<INbtTag> Values => Value.Values;
 
         public int Count => Value.Count;
 
-        bool ICollection<KeyValuePair<string, Tag<object>>>.IsReadOnly => false;
+        bool ICollection<KeyValuePair<string, INbtTag>>.IsReadOnly => false;
 
-        public Tag<object> this[string key] { get => Value[key]; set => Value[key] = value; }//
+        public INbtTag this[string key] { get => Value[key]; set => Value[key] = value; }//
 
 
-        public void Add(string key, Tag<object> value) => Value.Add(key, value);
+        public void Add(string key, INbtTag value) => Value.Add(key, value);
 
         public bool ContainsKey(string key) => Value.ContainsKey(key);
 
         public bool Remove(string key) => Value.Remove(key);
 
-        public bool TryGetValue(string key, [MaybeNullWhen(false)] out Tag<object> value) => Value.TryGetValue(key, out value);
+        public bool TryGetValue(string key, [MaybeNullWhen(false)] out INbtTag value) => Value.TryGetValue(key, out value);
 
-        void ICollection<KeyValuePair<string, Tag<object>>>.Add(KeyValuePair<string, Tag<object>> item) 
-            => ((ICollection<KeyValuePair<string, Tag<object>>>)Value).Add(item);
+        void ICollection<KeyValuePair<string, INbtTag>>.Add(KeyValuePair<string, INbtTag> item) 
+            => ((ICollection<KeyValuePair<string, INbtTag>>)Value).Add(item);
 
         public void Clear() => Value.Clear();
 
-        bool ICollection<KeyValuePair<string, Tag<object>>>.Contains(KeyValuePair<string, Tag<object>> item)
-            => ((ICollection<KeyValuePair<string, Tag<object>>>)Value).Contains(item);
+        bool ICollection<KeyValuePair<string, INbtTag>>.Contains(KeyValuePair<string, INbtTag> item)
+            => ((ICollection<KeyValuePair<string, INbtTag>>)Value).Contains(item);
 
-        void ICollection<KeyValuePair<string, Tag<object>>>.CopyTo(KeyValuePair<string, Tag<object>>[] array, int arrayIndex)
-            => ((ICollection<KeyValuePair<string, Tag<object>>>)Value).CopyTo(array, arrayIndex);
+        void ICollection<KeyValuePair<string, INbtTag>>.CopyTo(KeyValuePair<string, INbtTag>[] array, int arrayIndex)
+            => ((ICollection<KeyValuePair<string, INbtTag>>)Value).CopyTo(array, arrayIndex);
 
-        bool ICollection<KeyValuePair<string, Tag<object>>>.Remove(KeyValuePair<string, Tag<object>> item)
-            => ((ICollection<KeyValuePair<string, Tag<object>>>)Value).Remove(item);
+        bool ICollection<KeyValuePair<string, INbtTag>>.Remove(KeyValuePair<string, INbtTag> item)
+            => ((ICollection<KeyValuePair<string, INbtTag>>)Value).Remove(item);
 
-        public IEnumerator<KeyValuePair<string, Tag<object>>> GetEnumerator() => Value.GetEnumerator();
+        public IEnumerator<KeyValuePair<string, INbtTag>> GetEnumerator() => Value.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => Value.GetEnumerator();
         #endregion
