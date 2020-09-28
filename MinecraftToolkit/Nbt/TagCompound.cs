@@ -9,16 +9,22 @@ namespace MinecraftToolkit.Nbt
     {
         public static new readonly byte ID = 10;
 
-        public TagCompound(Dictionary<string, INbtTag> value) 
+        public TagCompound(Dictionary<string, INbtTag> value = null)
         {
-            Value = new Dictionary<string, INbtTag>();
-            foreach (var item in value)
-            {
-                Value.Add(item.Key, item.Value.Clone());
-            }
-        }//TODO: Move clone to CloneTag()
+            if (value is null) Value = new Dictionary<string, INbtTag>();
+            else Value = value;
+        }
+
         //TODO: override Equals()
-        protected override Tag<Dictionary<string, INbtTag>> CloneTag() => new TagCompound(Value);
+        protected override Tag<Dictionary<string, INbtTag>> CloneTag()
+        {
+            var dict = new Dictionary<string, INbtTag>();
+            foreach (var item in Value)
+            {
+                dict.Add(item.Key, (Tag<Dictionary<string, INbtTag>>)item.Value.Clone());
+            }
+            return new TagCompound(Value);
+        }
         public new TagCompound Clone() => CloneTag() as TagCompound;
 
         public T GetChild<T>(string key) where T: Tag<T> => Value[key] as T;
