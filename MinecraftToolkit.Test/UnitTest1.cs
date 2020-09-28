@@ -10,7 +10,7 @@ namespace MinecraftToolkit.Test
     public class UnitTest1
     {
         [TestMethod]
-        public void PerformanceTest()
+        public void Test()
         {
             TagCompound compound = new(new Dictionary<string, INbtTag>());
             compound.Add("double", new TagDouble(10.0d));
@@ -18,8 +18,9 @@ namespace MinecraftToolkit.Test
             var tag = compound["double"];
             var val = tag.GetValue<double>();
             var dtag = tag as TagDouble;
-
+            
             var child = compound["child"] as TagCompound;
+            
             int count = child.Count;
             
 

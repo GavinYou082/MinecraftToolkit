@@ -4,8 +4,10 @@ using System.Text;
 
 namespace MinecraftToolkit.Nbt
 {
+    public enum TagType { TagEnd, TagInt }
     public interface INbtTag : ICloneable, IEquatable<INbtTag>
     {
+        TagType TagType { get; }
         new INbtTag Clone();
         T GetValue<T>();
         object GetValue();
@@ -13,7 +15,10 @@ namespace MinecraftToolkit.Nbt
 
     public abstract class Tag<T> : INbtTag
     {
+        //Tag type and id used by minecraft
         public static readonly byte ID;
+        public TagType TagType  { get => (TagType)ID; }
+
         public T Value { get; set; }
         //public TagCompound Parent { get; protected set; }
 

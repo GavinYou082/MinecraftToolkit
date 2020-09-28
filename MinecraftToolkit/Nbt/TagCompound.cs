@@ -21,6 +21,20 @@ namespace MinecraftToolkit.Nbt
         protected override Tag<Dictionary<string, INbtTag>> CloneTag() => new TagCompound(Value);
         public new TagCompound Clone() => CloneTag() as TagCompound;
 
+        public T GetChild<T>(string key) where T: Tag<T> => Value[key] as T;
+        public bool TryGetChild<T>(string key, [MaybeNullWhen(false)] out T child) where T : Tag<T>
+        {
+            child = null;
+            if (!Value.ContainsKey(key)) return false;
+            if (Value[key] is Tag<T> tag)
+            {
+                child = tag;
+                return true;
+            }
+
+            return false;
+        }
+
         #region IDictionary<string, NbtINbtTag> Members
         public ICollection<string> Keys => Value.Keys;
 
@@ -30,7 +44,7 @@ namespace MinecraftToolkit.Nbt
 
         bool ICollection<KeyValuePair<string, INbtTag>>.IsReadOnly => false;
 
-        public INbtTag this[string key] { get => Value[key]; set => Value[key] = value; }//
+        public INbtTag this[string key] { get => Value[key]; set => Value[key] = value; }
 
 
         public void Add(string key, INbtTag value) => Value.Add(key, value);
