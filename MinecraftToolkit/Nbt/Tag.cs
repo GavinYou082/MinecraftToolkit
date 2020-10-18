@@ -54,22 +54,22 @@ namespace MinecraftToolkit.Nbt
         #endregion
 
         #region INbtTag Members
-        public object GetValue() => Value;
-        public TValue GetValue<TValue>()
+        object INbtTag.GetValue() => Value;
+        TValue INbtTag.GetValue<TValue>() => Value switch
         {
-            if (Value is TValue t) return t;
-            else throw new InvalidCastException($"Cannot cast the value of {typeof(Tag<T>)} to {typeof(TValue)}");
-        }
+            TValue t => t,
+            _ => throw new InvalidCastException($"Cannot cast the value of {typeof(Tag<T>)} to {typeof(TValue)}")
+        };
         #endregion
 
         #region IEquatable Members
         public virtual bool Equals([AllowNull] INbtTag other) => Value.Equals(other.GetValue());
 
-        public sealed override bool Equals(object obj)
+        public sealed override bool Equals(object obj) => obj switch
         {
-            if(obj is INbtTag t) return Value.Equals(t);
-            return false;
-        }
+            INbtTag t => Value.Equals(t.GetValue<T>()),
+            _ => false,
+        };
 
         public override int GetHashCode()
         {
