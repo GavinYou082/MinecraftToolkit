@@ -66,7 +66,7 @@ namespace MinecraftToolkit.Nbt
         public virtual bool Equals([AllowNull] INbtTag other)
         {
             if (other.TagType != TagType)
-                return Value.Equals(other.GetValue<T>());
+                return Value.Equals(other.GetValue<T>());//Boxing/unboxing performance for value types?
             else return false;
         }
 

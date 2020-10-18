@@ -18,7 +18,7 @@ namespace MinecraftToolkit.Test
             
             //Get a TagDouble from a compound tag
             var tag = compound["double"];
-            var dtag = tag as TagDouble;
+            compound.TryGetChildTag("double", out TagDouble dtag);
             //Get a TagCompound from a compound tag
             var child = compound["child"] as TagCompound;
             int count = child.Count;
