@@ -28,8 +28,8 @@ namespace MinecraftToolkit.Nbt
             return compound.Count == Count;
         }
 
-        public T GetChild<T>(string key) where T : Tag<T> => Value[key] as T;
-        public bool TryGetChild<T>(string key, [MaybeNullWhen(false)] out T child) where T : Tag<T>
+        public T GetChildTag<T>(string key) where T : Tag<T> => Value[key] as T;
+        public bool TryGetChildTag<T>(string key, [MaybeNullWhen(false)] out T child) where T : Tag<T>
         {
             child = null;
             if (!Value.ContainsKey(key)) return false;
