@@ -63,11 +63,16 @@ namespace MinecraftToolkit.Nbt
         #endregion
 
         #region IEquatable Members
-        public virtual bool Equals([AllowNull] INbtTag other) => Value.Equals(other.GetValue());
+        public virtual bool Equals([AllowNull] INbtTag other)
+        {
+            if (other.TagType != TagType)
+                return Value.Equals(other.GetValue<T>());
+            else return false;
+        }
 
         public sealed override bool Equals(object obj) => obj switch
         {
-            INbtTag t => Value.Equals(t.GetValue<T>()),
+            INbtTag t => Equals(t),
             _ => false,
         };
 

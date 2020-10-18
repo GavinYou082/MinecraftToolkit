@@ -16,13 +16,15 @@ namespace MinecraftToolkit.Nbt
             Value = value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(INbtTag obj)
         {
             if (obj is not TagList<T> lst || lst.Count != Count) return false;
+
             for (int i = 0; i < Count; i++)
             {
                 if (!lst[i].Equals(Value[i])) return false;
             }
+
             return true;
         }
 

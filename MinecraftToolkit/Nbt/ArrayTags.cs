@@ -1,10 +1,24 @@
-﻿namespace MinecraftToolkit.Nbt
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace MinecraftToolkit.Nbt
 {
     public abstract class TagArray<T> : Tag<T[]>
     {
         protected TagArray(T[] value = default)
         {
             Value = value;
+        }
+
+        public override bool Equals([AllowNull] INbtTag other)
+        {
+            if (other is not TagArray<T> tag || Value.Length != tag.Value.Length) return false;
+
+            for (int i = 0; i < Value.Length; i++)
+            {
+                if (!Value[i].Equals(tag.Value[i])) return false;
+            }
+
+            return true;
         }
 
         public new TagArray<T> Clone() => CloneTag() as TagArray<T>;
