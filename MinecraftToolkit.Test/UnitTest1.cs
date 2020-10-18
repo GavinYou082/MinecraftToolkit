@@ -10,21 +10,34 @@ namespace MinecraftToolkit.Test
     public class UnitTest1
     {
         [TestMethod]
-        public void Test()
+        public void TagCompoundAPISample()
         {
-            TagCompound compound = new(new Dictionary<string, INbtTag>());
+            //Initialize tag compound
+            TagCompound compound = new();
             compound.Add("double", new TagDouble(10.0d));
             
+            //Get a TagDouble from a compound tag
             var tag = compound["double"];
-            var val = tag.GetValue<double>();
             var dtag = tag as TagDouble;
-            
+            //Get a TagCompound from a compound tag
             var child = compound["child"] as TagCompound;
-            
             int count = child.Count;
-            
+
+            //Get a value from an INbtTag
+            var val = tag.GetValue<double>();
 
             Console.WriteLine(val);
+        }
+
+        [TestMethod]
+        public void TestMethod1()
+        {
+            //NBTFile nf = new NBTFile(@"D:\Minecraft\.minecraft\saves\Survival\level.dat");
+            //NbtTree tree = new NbtTree(nf.GetDataInputStream());
+
+            //return;
+
+
             //List<string> failed = new List<string>();
             //List<NbtTree> regions = new List<NbtTree>();
             //foreach (var item in Directory.EnumerateFiles(@"D:\Minecraft\.minecraft\saves\Survival\region"))
@@ -49,14 +62,6 @@ namespace MinecraftToolkit.Test
             //return;
         }
 
-        [TestMethod]
-        public void TestMethod1()
-        {
-            //NBTFile nf = new NBTFile(@"D:\Minecraft\.minecraft\saves\Survival\level.dat");
-            //NbtTree tree = new NbtTree(nf.GetDataInputStream());
-
-            //return;
-        }
         [TestMethod]
         public void TestMethod2()
         {

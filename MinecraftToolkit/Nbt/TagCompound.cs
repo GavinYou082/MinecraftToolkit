@@ -20,14 +20,12 @@ namespace MinecraftToolkit.Nbt
         public override bool Equals(INbtTag obj)
         {
             if (obj is not TagCompound compound) return false;
-            foreach (var item in Value)
+            foreach (var (name, value) in Value)
             {
-                //TODO: if contains extra values?
-                string key = item.Key;
-                if (compound.ContainsKey(key) && compound[key].Equals(Value[key])) continue;
-                return false;
+                if (!(compound.ContainsKey(name) && compound[name].Equals(value)))
+                    return false;
             }
-            return base.Equals(obj);
+            return compound.Count == Count;
         }
 
         public T GetChild<T>(string key) where T : Tag<T> => Value[key] as T;
